@@ -7,10 +7,24 @@
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.cdnfonts.com/css/g-guarantee" rel="stylesheet">
     <!-- import jquery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         main{
             position: relative;
-            height:500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        #runaway{
+            width: 100px;
+            height: 100px;
+            background-image: url('img/psyduck.png'); /* replace with your image */
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -18,7 +32,6 @@
     <header>
         <img class="logo" src="img/logo.png" alt="Pokémon">
         <h1>1. jQuery Exercises</h1>
-
     </header>
     <nav>
         <ul>
@@ -30,19 +43,25 @@
     </nav>
     <main>
         <h2>Exercise 4: Animation</h2>
-        <div id="runaway">
-        </div>
+        <div id="runaway"></div>
+
         <script>
             $(document).ready(function() {
-                // Exercise 4 Instructions:
-                // When the user tries to catch Psyduck with the cursor it will try to run away!
-                // use jQuery to animate the "runaway" div to move it randomly.
-                // a. Get the event trigger on the runaway div
-                // b. Get the parent element size (width and height).
-                //    Remove from each 100px to account for the size of the runaway div.
-                // c. Calculate new random left and top values between 0 and height/width of main
-                // d. Animate the touched runaway div by changing its css propertied left and top
-            
+                $("#runaway").hover(function() {
+                    // Get parent dimensions
+                    let parentWidth = $(this).parent().width() - $(this).width();
+                    let parentHeight = $(this).parent().height() - $(this).height();
+
+                    // Generate random positions
+                    let newLeft = Math.floor(Math.random() * parentWidth);
+                    let newTop = Math.floor(Math.random() * parentHeight);
+
+                    // Animate the div to the new position
+                    $(this).stop().animate({
+                        left: newLeft + "px",
+                        top: newTop + "px"
+                    }, 400);
+                });
             });
         </script>
     </main>
